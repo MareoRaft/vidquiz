@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='UTF-8'>
+    <title>vidquiz</title>
+<style>
+	#space {
+		height: 200px;
+		background-color: green;
+	}
+	#container {
+		position: relative; /*THIS allows the position:absolute of the inner box to be relative to this container!*/
+	}
+	.wrapper { /*if you need text or background next to the input, wrap it in a div*/
+		position: absolute; /*this combined w/ pos:relative of container makes it work*/
+	}
+	button {
+		visibility: hidden;
+	}
+	#correctness {
+		visibility: hidden;
+	}
+</style>
+</head>
+<body>
+	<div id="space">I move the video down.</div>
+	 <!-- ogv -->
+	 <!-- mp4 - most compatible, do this first -->
+	 <!-- ogg or webm good for backup -->
+	<div id="container" style="border: 1px solid purple">
+		<video id="vid" src="short.mov" controls poster="coverphoto.png" width="320px" height="240px" style="position:static;">
+			<a href="video.ogv">Download song</a>
+		</video><br>
+		<button type="button">Submit Answer</button>
+		<div id="correctness">correct!</div>
+	</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="vidquiz.js"></script>
+<script>
+"use strict"
+$(document).ready(function(){
+
+new Quiz({
+	video_id: "vid",
+	questions: [
+		new Question({
+			time: 1,
+			type: "checkbox", // checkbox is for multiselect, where more than one answer is correct and you must select all
+			positions: [[0.4, 0.4], [0.4, 0.6]],
+			correct_value: [0, 1],
+		}),
+		new Question({
+			time: 4, // at what time during the video you want the question to be, in seconds
+			type: "radio", // radio is for multichoice, where only one question is correct.  this is the default
+			positions: [[0.2, 0.2], [0.2, 0.4], [0.2, 0.6], [0.2, 0.8]], // each coordinate [x,y] is a width and height fraction between 0 and 1
+			correct_value: 1,
+		}),
+	],
+})
+
+
+}) // end of document.ready
+</script>
+</html>

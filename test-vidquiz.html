@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='UTF-8'>
+    <title>test vidquiz</title>
+<style>
+	#space {
+		height: 200px;
+		background-color: green;
+	}
+	#container {
+		position: relative; /*THIS allows the position:absolute of the inner box to be relative to this container!*/
+	}
+	.wrapper { /*if you need text or background next to the input, wrap it in a div*/
+		position: absolute; /*this combined w/ pos:relative of container makes it work*/
+	}
+	button {
+		visibility: hidden;
+	}
+	#correctness {
+		visibility: hidden;
+	}
+</style>
+</head>
+<body>
+	<div id="space">I move the video down.</div>
+	 <!-- ogv -->
+	 <!-- mp4 - most compatible, do this first -->
+	 <!-- ogg or webm good for backup -->
+	<div id="container" style="border: 1px solid purple">
+		<video id="vid" src="short.mov" controls poster="coverphoto.png" width="320px" height="240px" style="position:static;">
+			<a href="video.ogv">Download song</a>
+		</video><br>
+		<button type="button">Submit Answer</button>
+		<div id="correctness">correct!</div>
+	</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="vidquiz.js"></script>
+<script src="expect.js"></script>
+<script>
+"use strict"
+
+function test_setContained(){
+	expect(setContained([], [])).toBe(true)
+	expect(setContained([8], [])).toBe(false)
+	expect(setContained([1, 2, 3], [1, 2, 3])).toBe(true)
+	expect(setContained([], ["one"])).toBe(true)
+	expect(setContained(["one"], [])).toBe(false)
+	expect(setContained([], [1, 2])).toBe(true)
+	expect(setContained([1, 2, 3], [1, 2])).toBe(false)
+	expect(setContained(["one"], ["one", "two", 7])).toBe(true)
+}
+test_setContained()
+
+function test_setEqual(){
+	expect(setEqual([], [])).toBe(true)
+	expect(setEqual([1], [1])).toBe(true)
+	expect(setEqual([1, 2], [1, 2])).toBe(true)
+	expect(setEqual([2, 1], [1, 2])).toBe(true)
+	expect(setEqual([0, 1], [1, 0])).toBe(true)
+	expect(setEqual(["0", "1"], [1, 0])).toBe(false)
+}
+test_setEqual()
+
+
+
+</script>
+</html>
