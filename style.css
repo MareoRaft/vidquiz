@@ -1,0 +1,23 @@
+#space { /* for testing purposes */
+	height: 100px;
+	background-color: #eee;
+}
+#container {
+	position: relative; /*THIS allows the position:absolute of the inner box to be relative to this container!*/
+}
+.wrapper { /*if you need text or background next to the input, wrap it in a div*/
+	position: absolute; /*this combined w/ pos:relative of container makes it work*/
+}
+button {
+	visibility: hidden;
+}
+#correctness {
+	visibility: hidden;
+}
+
+
+
+.overlay {
+	background-color: red;
+	color: green;
+}

@@ -1,0 +1,1 @@
+note to self: Corsera manages to put vidquizzes in FULL SCREEN video mode!  Whoah!  So it is possible!!!!!

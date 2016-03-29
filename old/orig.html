@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='UTF-8'>
+    <title>vidquiz</title>
+<style>
+	#space {
+		height: 200px;
+		background-color: green;
+	}
+	#container {
+		position: relative; /*THIS allows the position:absolute of the inner box to be relative to this container!*/
+	}
+	.wrapper { /*if you need text or background next to the input, wrap it in a div*/
+		position: absolute; /*this combined w/ pos:relative of container makes it work*/
+	}
+</style>
+</head>
+<body>
+	<div id="space">I move the video down.</div>
+	 <!-- ogv -->
+	 <!-- mp4 - most compatible, do this first -->
+	 <!-- ogg or webm good for backup -->
+	<div id="container" style="border: 1px solid purple">
+		<video id="vid" src="short.mov" controls poster="dribbble.png" width="320px" height="240px" style="position:absolute;">
+			<a href="video.ogv">Download song</a>
+		</video>
+	</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	var positions = [
+		[0.2, 0.2], [0.2, 0.4], [0.2, 0.6], [0.2, 0.8]
+	]
+
+
+	var v = $("#vid").get(0)
+	v.play()
+
+
+	var alerted = false
+	$('#vid').on('timeupdate', function(){
+		// this.duration // duration of whole video!
+		if( !alerted && this.currentTime >= 0.5 ){
+			v.pause()
+			alerted = true
+
+			var $radio = undefined
+			for( var i in positions ){
+				var $el = $('<input class="wrapper" type="radio" name="connectedradiossamename" value="'+i.toString()+'">')
+				$el.css('left', positions[i][0] * v.width)
+				$el.css('top', positions[i][1] * v.height)
+				$('#container').append($el)
+			}
+
+		}
+		// this.currentTime // time elapsed of video!
+	})
+
+
+
+})
+</script>
+</html>
