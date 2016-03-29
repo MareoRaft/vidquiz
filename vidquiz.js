@@ -10,7 +10,7 @@ function setContained(arr1, arr2){
 function setEqual(arr1, arr2) {
 	return setContained(arr1, arr2) && setContained(arr2, arr1)
 }
-// end set behaviors on arrays
+//////////// end set behaviors on arrays
 
 
 class Quiz {
@@ -44,11 +44,25 @@ class Quiz {
 	ask(question) {
 		this.video.pause()
 		for( let i in question.positions ){
+			let position = question.positions[i]
 			let $el = $('<input class="wrapper" name="connectedradios">')
 			$el.attr('type', question.type)
 			$el.attr('value', i)
-			$el.css('left', question.positions[i][0] * this.video.width)
-			$el.css('top', question.positions[i][1] * this.video.height)
+			$el.css('left', position[0] * this.video.width)
+			$el.css('top', position[1] * this.video.height)
+			console.log('before')
+			if( question.style === 'overlay' ){
+				console.log('in')
+				$el.css('width', position[2].to_string() + '%')
+				$el.addClass('overlay')
+
+				// <label>
+				// 	<input type="radio" name="provider" value="facebook" />
+				// 	<div class="image-wrapper"><img src="images/social-icons/facebook.png" alt="Facebook" /></div>
+				// </label>
+
+
+			}
 			$('#container').append($el)
 		}
 		$('#correctness').css('visibility', 'hidden')
@@ -58,6 +72,7 @@ class Quiz {
 		let correct = false
 		if( question.type === 'radio' ){
 			let radio_value = $('input[type=radio]:checked').val()
+			// TODO check that the TYPE of radio_value is an INTEGER (NOT AN ARRAY)
 			if( radio_value == question.correct_value ) correct = true // fuzzy equals ON PURPOSE
 		}
 		else if( question.type === 'checkbox' ){
